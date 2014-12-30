@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>XDS Servlet</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="robots" content="noindex,nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+
+	<!--[if lt IE 11]><script type="text/javascript" src="json2.js"></script><![endif]-->
+	<script type="text/javascript" src="servlet.js"></script>
+</head>
+<body style="background:none transparent;">
+<!-- iframe receives data and returns message -->
+
+<script>
+	setTimeout(function(){
+		console.debug('servlet sent:', 'Hello');
+		_$xds.postMessage('Hello');
+	}, 1000);
+</script>
+
+</body>
+</html>

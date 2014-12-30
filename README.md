@@ -1,0 +1,1 @@
+Basic JS cross domain messaging template
