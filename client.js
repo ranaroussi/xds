@@ -83,26 +83,33 @@
      * figure out the server
      * --------------------------------------------------
      */
-    var scripts = document.getElementsByTagName("script");
-    for (var i = scripts.length-1; i >= 0; i--) {
-        var script = scripts[i].src.replace('"', "").replace('"', "");
-        if (script.indexOf(selfIdentifier) !== -1) {
+    var script = (function(selfScript) {
+        try {
+            return document.currentScript.src;
+        } catch(err) {
 
-            // parse data
-            var cdnURI   = script.split("//");
-            var protocol = cdnURI[0]+"//";
-            var cdnParts = cdnURI[1].split("/");
-                cdnParts.pop();
+            var scripts = document.getElementsByTagName("script");
+            for (var i = scripts.length-1; i >= 0; i--) {
+                var script = scripts[i].src.replace('"', "").replace('"', "");
+                if (script.indexOf(selfScript) !== -1) {
+                    return script.src.replace('"', "").replace('"', "");
+                }
+            }
 
-            // assign values
-            cdn           = protocol+cdnParts.join("/")+"/";
-            servletURI    = protocol+cdnParts.join("/")+"/servlet.html";
-            allowedOrigin = protocol+cdnParts[0];
-
-            // break loop
-            break;
         }
-    }
+    }(selfIdentifier));
+
+    // parse data
+    var cdnURI   = script.split("//");
+    var protocol = cdnURI[0]+"//";
+    var cdnParts = cdnURI[1].split("/");
+        cdnParts.pop();
+
+    // assign values
+    cdn           = protocol+cdnParts.join("/")+"/";
+    servletURI    = protocol+cdnParts.join("/")+"/servlet.html";
+    allowedOrigin = protocol+cdnParts[0];
+
 
 	/**
      * --------------------------------------------------
