@@ -1,5 +1,5 @@
 // @require json2.js for ie<11
-(function(undefined) {
+(function(_$xds, undefined) {
 
     // what to look for when looking for self
     var selfIdentifier = 'client.js?rh';
@@ -35,24 +35,24 @@
 
     /**
      * --------------------------------------------------
-     * @param  object sendMsg message to send (JSON object)
+     * @param  object message message to send (JSON object)
      * @return boolean true/false
      * --------------------------------------------------
      */
-    function postMessage(sendMsg) {
-        console.debug('client sent:', sendMsg);
+    _$xds.postMessage = function(message) {
+        console.debug('client sent:', message);
 
-        if (typeof(sendMsg) === typeof({})) {
-            sendMsg = JSON.stringify(sendMsg);
+        if (typeof(message) === typeof({})) {
+            message = JSON.stringify(message);
         }
 
         try {
             var iframe = document.getElementById(ifrID).contentWindow;
-            return iframe.postMessage(sendMsg, allowedOrigin);
+            return iframe.postMessage(message, allowedOrigin);
         } catch(err) {
             console.debug("Failed postMessage()");
         }
-    }
+    };
 
 
     /**
@@ -72,8 +72,7 @@
         /*
         // do json stuff
         if (typeof(data) === typeof({})) {
-            if (typeof(data.command) === typeof(undefined) || typeof(data.params) === typeof(undefined)) return;
-            console.debug(data.params);
+            // ...
         }
         */
     }
@@ -142,7 +141,7 @@
 
                 xdsifr.onload = function(){
                     setTimeout(function(){
-                        postMessage( {"ready":true} );
+                        _$xds.postMessage( {"ready":true} );
                     }, 10);
                 };
 
@@ -154,4 +153,4 @@
         });
     }
 
-}());
+}(window._$xds = window._$xds || {}));
