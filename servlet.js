@@ -57,7 +57,7 @@
             }
         } catch (err) {
             // something went wrong...
-            servlet.debug(err.name + ": " + err.message);
+            console.debug(err.name + ": " + err.message);
             return;
         }
 
