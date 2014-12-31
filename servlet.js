@@ -13,7 +13,10 @@
 
     var origin = window.parent || undefined;
     _$xds.postMessage = function(message) {
-        window.parent.postMessage(JSON.stringify(message), origin);
+        if (typeof(message) === typeof({})) {
+            message = JSON.stringify(message);
+        }
+        window.parent.postMessage(message, origin);
     };
 
     // -------------------------
